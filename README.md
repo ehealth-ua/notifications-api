@@ -4,7 +4,7 @@ EHCS Notifications Service
 Components
 ----------
 
-* NOTIFICATIONS (Top Level Service for Vendors)
+* NOTIFICATIONS (Public Top Level Service for Vendors)
 * DIIA33 (Internal SOAP Tembita channel)
 * OTP_VERIFICATION.API (Internal SMS channel)
 

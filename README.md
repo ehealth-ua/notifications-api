@@ -5,8 +5,8 @@ Components
 ----------
 
 * NOTIFICATIONS (Top Level Service for Vendors)
-* DIIA33 (SOAP Tembita channel)
-* OTP_VERIFICATION.API (SMS channel)
+* DIIA33 (Internal SOAP Tembita channel)
+* OTP_VERIFICATION.API (Internal SMS channel)
 
 Credits
 -------

@@ -9,12 +9,15 @@ HOST: https://notifications.ehealth.gov.ua
     + `person_id`: `ddd0902b-a58a-4a5d-b3e5-9a25c5326058` (string, required)
     + `template_name`: `TEMPLATE_FOR_SIGN_MEDICATION_REQUEST` (string, required)
     + `parameters`: `[{"code","1234"}]` (array of pairs, required)
+
 + Request (application/json)
     + Headers
         Authorization: Bearer c2778f3064753ea70de870a53795f5c9
+
 + Response 201 (application/json)
     + Attributes (`Response_OK`)
         + notification_id (`NotificationId`)
+
 + Response 400 (application/json)
     + Attributes (`Bad_Request`)
         + error (`NotificationError`)
@@ -24,6 +27,7 @@ HOST: https://notifications.ehealth.gov.ua
 + Request (application/json)
     + Headers
         Authorization: Bearer c2778f3064753ea70de870a53795f5c9
+
 + Response 201 (application/json)
     + Attributes (`Response_OK`)
         + notification_id (string)
@@ -31,6 +35,7 @@ HOST: https://notifications.ehealth.gov.ua
         + status (string, one_of_sent, not_sent, delivered, not_delivered, unconfirmed_delivery)
         + status_reason: string
         + status_timestamp: ISO 8601 format string
+
 + Response 202(application/json)
     + Attributes (`No_Content')
         + notification_id (`EmptyNotification`)

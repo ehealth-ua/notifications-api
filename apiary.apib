@@ -1,145 +1,36 @@
 FORMAT: 1A
-HOST: https://local.securityserver.example:443
+HOST: https://notifications.ehealth.gov.ua
 
-# eHealth Trembita CancelDisabilityAnswerService
+# EHCS Notifications Service
 
+### Send Notification [POST /api/notifications]
 
-# Group CancelDisabilityAnswerSoap11
++ Parameters
+    + `person_id`: `ddd0902b-a58a-4a5d-b3e5-9a25c5326058` (string, required)
+    + `template_name`: `TEMPLATE_FOR_SIGN_MEDICATION_REQUEST` (string, required)
+    + `parameters`: `[{"code","1234"}]` (array of pairs, required)
++ Request (application/json)
+    + Headers
+        Authorization: Bearer c2778f3064753ea70de870a53795f5c9
++ Response 201 (application/json)
+    + Attributes (`Response_OK`)
+        + notification_id (`NotificationId`)
++ Response 400 (application/json)
+    + Attributes (`Bad_Request`)
+        + error (`NotificationError`)
 
-## CancelDisabilityAnswer [/CancelDisabilityAnswer]
-
-### CancelDisabilityAnswer [POST]
+### Get Notification [GET /api/notifications/{id}]
 
 + Request (application/json)
     + Headers
-
-            protocolVersion:<<Add Header Value>>
-            id:<<Add Header Value>>
-            userId:<<Add Header Value>>
-            service:<<Add Header Value>>
-            client:<<Add Header Value>>
-
-
-    + Attributes (CancelDisabilityAnswerRequest)
-
-
-
-+ Response 200 (application/xml)
-
-        Successfully retrieved the response
-
-    + Attributes (CancelDisabilityAnswerResponse)
-
-
-
-
-
-# Data Structures
-
-## tnsCancelDisabilityAnswerRequest (object)
-
-
-### Properties
-+ `CANCEL_ID` (string, required) 
-+ `EXTERNAL_ID` (string, required) 
-+ `REGID` (number, required) 
-+ `ANSWER_DATE` (string, required) 
-+ `RESULT` (number, required) 
-+ `DP` (tnsCancelDisabilityAnswerRequestDPField, optional, nullable) 
-+ `SL` (tnsCancelDisabilityAnswerRequestSLField, optional, nullable) 
-
-
-## tnsCancelDisabilityAnswerRequestDPField (object)
-
-
-### Properties
-+ `NKSS` (number, required) 
-+ `IPN` (string, optional, nullable) 
-+ `LAST_NAME` (string, required) 
-+ `FIRST_NAME` (string, required) 
-+ `SECOND_NAME` (string, optional, nullable) 
-
-
-## tnsCancelDisabilityAnswerRequestSLField (object)
-
-
-### Properties
-+ `SL_NUM` (string, required) 
-+ `SL_REG_DATETIME` (string, optional, nullable) 
-+ `SL_PROLONGATION` (string, optional, nullable) 
-+ `SL_STOP` (string, optional, nullable) 
-+ `SL_START` (string, optional, nullable) 
-+ `IC_NUM` (string, optional, nullable) 
-
-
-## tnsCancelDisabilityAnswerResponse (object)
-
-
-### Properties
-+ `CANCEL_ID` (string, required) 
-+ `requestReceiveStatus` (boolean, required) 
-+ `faultCode` (number, optional, nullable) 
-
-
-## idXRoadIdentifierType (object)
-Globally unique identifier in the XROAD system. Identifier consists of object type specifier and list of hierarchical codes (starting with code that identifiers the XROAD instance).
-
-### Properties
-+ `objectType` (enum[string], optional) 
-    + `MEMBER`
-    + `SUBSYSTEM`
-    + `SERVICE`
-    + `CENTRALSERVICE`
-+ `xRoadInstance` (string, optional) - Identifies the XROAD instance. This field is applicable to all identifier types.
-+ `memberClass` (string, optional) - Type of the member (company, government institution, private person, etc.)
-+ `memberCode` (string, optional) - Code that uniquely identifies a member of given member type.
-+ `subsystemCode` (string, optional) - Code that uniquely identifies a subsystem of given XROAD member.
-+ `serviceCode` (string, optional) - Code that uniquely identifies a service offered by given XROAD member or subsystem.
-+ `serviceVersion` (string, optional) - Version of the service.
-
-
-## idXRoadClientIdentifierType (object)
-
-
-### Properties
-+ `xRoadInstance` (string, required) - Identifies the XROAD instance. This field is applicable to all identifier types.
-+ `memberClass` (string, required) - Type of the member (company, government institution, private person, etc.)
-+ `memberCode` (string, required) - Code that uniquely identifies a member of given member type.
-+ `subsystemCode` (string, optional) - Code that uniquely identifies a subsystem of given XROAD member.
-+ `objectType` (enum[string], optional) 
-    + `MEMBER`
-    + `SUBSYSTEM`
-    + `SERVICE`
-    + `CENTRALSERVICE`
-
-
-## idXRoadServiceIdentifierType (object)
-
-
-### Properties
-+ `xRoadInstance` (string, required) - Identifies the XROAD instance. This field is applicable to all identifier types.
-+ `memberClass` (string, required) - Type of the member (company, government institution, private person, etc.)
-+ `memberCode` (string, required) - Code that uniquely identifies a member of given member type.
-+ `subsystemCode` (string, optional) - Code that uniquely identifies a subsystem of given XROAD member.
-+ `serviceCode` (string, required) - Code that uniquely identifies a service offered by given XROAD member or subsystem.
-+ `serviceVersion` (string, optional) - Version of the service.
-+ `objectType` (enum[string], optional) 
-    + `MEMBER`
-    + `SUBSYSTEM`
-    + `SERVICE`
-    + `CENTRALSERVICE`
-
-
-## CancelDisabilityAnswerRequest (object)
-
-
-### Properties
-+ `CancelDisabilityAnswerRequest` (tnsCancelDisabilityAnswerRequest, required) 
-
-
-## CancelDisabilityAnswerResponse (object)
-
-
-### Properties
-+ `CancelDisabilityAnswerResponse` (tnsCancelDisabilityAnswerResponse, required) 
-
+        Authorization: Bearer c2778f3064753ea70de870a53795f5c9
++ Response 201 (application/json)
+    + Attributes (`Response_OK`)
+        + notification_id (string)
+        + person_id (string)
+        + status (string, one_of_sent, not_sent, delivered, not_delivered, unconfirmed_delivery)
+        + status_reason: string
+        + status_timestamp: ISO 8601 format string
++ Response 202(application/json)
+    + Attributes (`No_Content')
+        + notification_id (`EmptyNotification`)

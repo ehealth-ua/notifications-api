@@ -8,7 +8,7 @@ HOST: https://notifications.ehealth.gov.ua
 + Parameters
     + `person_id`: `ddd0902b-a58a-4a5d-b3e5-9a25c5326058` (string, required)
     + `template_name`: `TEMPLATE_FOR_SIGN_MEDICATION_REQUEST` (string, required)
-    + `parameters`: `[]` (array of pairs, required)
+    + `parameters`: `123` (string, required)
 
 + Request (application/json)
     + Headers
@@ -20,7 +20,7 @@ HOST: https://notifications.ehealth.gov.ua
 
 + Response 400 (application/json)
     + Attributes (`Bad_Request`)
-        + error (`NotificationError`)
+        + error (string)
 
 ### Get Notification [GET /api/notifications/{id}]
 
@@ -29,13 +29,32 @@ HOST: https://notifications.ehealth.gov.ua
         Authorization: Bearer c2778f3064753ea70de870a53795f5c9
 
 + Response 201 (application/json)
-    + Attributes (`Response_OK`)
+    + Attributes (`Response_Notification`)
         + notification_id (string)
         + person_id (string)
-        + status (string, one_of_sent, not_sent, delivered, not_delivered, unconfirmed_delivery)
+        + status (string)
         + status_reason: (string)
         + status_timestamp: (string)
 
 + Response 202(application/json)
     + Attributes (`No_Content')
-        + notification_id (`EmptyNotification`)
+        + notification_id (sgtring)
+
+### `Response_OK`
++ notification_id (string)
+
+### `Response_Notification`
++ notification_id (string)
++ person_id (string)
++ status (string)
++ status_reason: (string)
++ status_timestamp: (string)
+
+### `No_Content`
++ notification_id (string)
+
+### `Bad_Request`
++ notification_id (string)
+
+### `No_Content`
++ error (string)

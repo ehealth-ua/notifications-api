@@ -7,35 +7,53 @@ HOST: https://notifications.ehealth.gov.ua
 
 ### Send Notification [POST /api/notifications]
 
-+ Parameters
-    + `person_id`: `ddd0902b-a58a-4a5d-b3e5-9a25c5326058` (string, required)
-    + `template_name`: `TEMPLATE_FOR_SIGN_MEDICATION_REQUEST` (string, required)
-    + `parameters`: `[]` (array of pairs, required)
-
 + Request (application/json)
-    + Headers
-        Authorization: Bearer c2778f3064753ea70de870a53795f5c9
+    + Attributes (object)
+        + `person_id`: `d290f1ee-6c54-4b01-90e6-d701748f0851` (string, required) - Identifier of person that is accosiated with user who initiated access token generation
+        + `template` (object, required)
+            + `name`: `TEMPLATE_CREATE_SERVICE_REQUEST` (string, required) - Identifier of template
+            + `parameters` (object) - Key/value pairs of parameters, where key is parameters name
 
 + Response 201 (application/json)
-    + Attributes 
-        + notification_id (required, string)
-
+    + Attributes (`Notification`)
+    
 + Response 400 (application/json)
-    + Attributes
-        + error: (object)
+    + Attributes (`Error`)
+
++ Response 422 (application/json)
+    + Attributes (`ValidationError`)
+
++ Response 500 (application/json)
+    + Attributes (`Error`)
 
 ### Get Notification [GET /api/notifications/{id}]
 
 + Request (application/json)
-    + Headers
-        Authorization: Bearer c2778f3064753ea70de870a53795f5c9
+    + Parameters
+        + id: `a48cc83a-7aad-47c6-9487-2a566dc669a7` (string, required)
 
-+ Response 201 (application/json)
-    + Attributes
-        + notification_id (string)
-        + person_id (string)
-        + status (string, one_of_sent, not_sent, delivered, not_delivered, unconfirmed_delivery)
-        + status_reason: (string)
-        + status_timestamp: (string)
++ Response 200 (application/json)
+    + Attributes (`Notification`)
 
-+ Response 204 (application/json)
++ Response 204
+
++ Response 500 (application/json)
+    + Attributes (`Error`)
+
+# Data Structures
+
+## Notification (object)
++ notification_id: `a48cc83a-7aad-47c6-9487-2a566dc669a7` (string, required) - UUID string
++ person_id: `d290f1ee-6c54-4b01-90e6-d701748f0851` (string, required) - UUID string
++ status: sent, not_sent, delivered, not_delivered, unconfirmed_delivery (enum, required) - Notification status
++ status_reason: `sent` (string) - Freeform string
++ status_timestamp: `2024-08-07 11:03:20.128570` (string, required) - ISO 8601 sormat
+
+## ValidationError (Error)
+- type: `validation_error` (fixed)
+- message: `Validation failed` (string, required)
+- errors (object, required)
+
+## Error (object)
++ type: `example_error` (string, required) - Machine-readable error type
++ message: `Example error message` (string, required) - Human-readable error description
